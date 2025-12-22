@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MapPin, Calendar, Clock, Search, ChevronDown } from 'lucide-react';
+import { MapPin, Calendar, Search } from 'lucide-react';
 import { format, addDays } from 'date-fns';
 
 export function SearchForm({ variant = 'hero' }: { variant?: 'hero' | 'compact' }) {

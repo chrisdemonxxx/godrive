@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  Shield, Clock, CheckCircle, Wallet, MapPin, Star, 
-  ChevronRight, Car, Key, CreditCard, Search, Phone,
-  Users, Fuel, Play, ArrowRight, Instagram, Twitter, 
-  Linkedin, Facebook, Mail, Headphones, BadgeCheck,
+  Shield, Clock, Wallet, MapPin, Star, 
+  Car, Key, CreditCard, Search,
+  Users, Fuel, ArrowRight, Instagram, Twitter, 
+  Linkedin, Headphones, BadgeCheck,
   Sparkles, TrendingUp, Heart, Zap
 } from 'lucide-react';
 import { SearchForm } from '@/shared/components/SearchForm';
