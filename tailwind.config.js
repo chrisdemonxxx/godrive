@@ -1,24 +1,20 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
-        // GoDrive Brand Colors
         primary: {
-          50: '#eff6ff',
-          100: '#dbeafe',
-          200: '#bfdbfe',
-          300: '#93c5fd',
-          400: '#60a5fa',
-          500: '#3b82f6',
-          600: '#0066FF', // GoDrive Blue
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a',
+          50: '#EBF5FF',
+          100: '#E1EFFE',
+          200: '#C3DDFD',
+          300: '#A4CAFE',
+          400: '#76A9FA',
+          500: '#3F83F8',
+          600: '#0066FF', // Main brand color
+          700: '#0052CC',
+          800: '#0041A8',
+          900: '#003380',
         },
         secondary: {
           50: '#fff7ed',
@@ -36,15 +32,18 @@ export default {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
       },
-      borderRadius: {
-        'xl': '1rem',
-        '2xl': '1.5rem',
+      animation: {
+        'float': 'float 5s ease-in-out infinite',
+        'float-slow': 'float-slow 7s ease-in-out infinite',
+        'shine': 'shine 1s ease-in-out',
       },
       boxShadow: {
         'card': '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
         'card-hover': '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+        'glow': '0 0 40px rgba(0, 102, 255, 0.15)',
+        'glow-lg': '0 0 60px rgba(0, 102, 255, 0.2)',
       },
     },
   },
   plugins: [],
-}
+};
