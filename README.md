@@ -177,3 +177,6 @@ This project is proprietary software. All rights reserved.
 ---
 
 **Made with ❤️ in Bangalore**
+
+---
+**🚀 Auto-deployment**: Every push to `main` automatically deploys to Vercel!
