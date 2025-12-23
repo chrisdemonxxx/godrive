@@ -22,12 +22,12 @@
     /* Path aliases */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@/components/*": ["./src/shared/components/*"],
+      "@/*": ["./*"],
+      "@/components/*": ["./components/*"],
       "@/hooks/*": ["./src/shared/hooks/*"],
       "@/utils/*": ["./src/shared/utils/*"],
       "@/types/*": ["./src/shared/types/*"],
-      "@/lib/*": ["./src/shared/lib/*"],
+      "@/lib/*": ["./lib/*"],
       "@/modules/*": ["./src/modules/*"],
       "@/schemas/*": ["./src/shared/schemas/*"],
       "@/config/*": ["./src/config/*"]
