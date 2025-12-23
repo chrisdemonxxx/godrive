@@ -25,7 +25,7 @@ const nextConfig = {
     optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
   },
   // Webpack config for handling node_modules
-  webpack: (config, { isServer, webpack }) => {
+  webpack: (config, { isServer }) => {
     if (!isServer) {
       config.resolve.fallback = {
         ...config.resolve.fallback,
@@ -34,12 +34,6 @@ const nextConfig = {
         tls: false,
       };
     }
-    // Ignore old src/pages directory from React Router setup
-    config.plugins.push(
-      new webpack.IgnorePlugin({
-        resourceRegExp: /^\.\/src\/pages/,
-      })
-    );
     return config;
   },
 };
