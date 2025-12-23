@@ -4,7 +4,7 @@ import {
   Shield, Clock, Wallet, MapPin, Star, 
   Car, Key, CreditCard, Search,
   Users, Fuel, ArrowRight, Instagram, Twitter, 
-  Linkedin, Headphones, BadgeCheck,
+  Linkedin, Facebook, Headphones, BadgeCheck,
   Sparkles, TrendingUp, Heart, Zap
 } from 'lucide-react';
 import { SearchForm } from '@/shared/components/SearchForm';
