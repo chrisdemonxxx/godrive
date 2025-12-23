@@ -52,6 +52,11 @@ const envSchema: EnvSchema = {
 };
 
 export function validateEnv(): void {
+  // Skip validation during build time (SSR/build environments)
+  if (typeof window === 'undefined') {
+    return;
+  }
+
   // Skip validation in development mode with placeholder values
   const isDevelopment = import.meta.env.VITE_APP_ENV === 'development' || 
                         import.meta.env.MODE === 'development';
