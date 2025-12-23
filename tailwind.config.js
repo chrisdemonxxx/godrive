@@ -35,7 +35,22 @@ module.exports = {
           800: '#9a3412',
           900: '#7c2d12',
         },
-        // Premium dark theme colors
+        // Accent colors (for dark theme utilities - defined at root level so Tailwind can generate utilities)
+        accent: {
+          cyan: '#00F0FF',
+          cyanLight: '#5FFBFF',
+          cyanDark: '#00B8C4',
+          magenta: '#FF006E',
+          magentaLight: '#FF4D94',
+          purple: '#8B5CF6',
+          purpleLight: '#A78BFA',
+          green: '#00FF88',
+          gold: '#FFD700',
+          rose: '#FF7EB3',
+          orange: '#FF8C42',
+          teal: '#00D9FF',
+        },
+        // Premium dark theme colors (kept for reference/organization)
         dark: {
           bg: {
             primary: '#030014',
