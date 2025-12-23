@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { GuestNavbar } from '@/components/layout/GuestNavbar';
 import { GuestFooter } from '@/components/layout/GuestFooter';
-import { AuroraBackground } from '@/components/layout/AuroraBackground';
+import AuroraBackground from '@/components/layout/AuroraBackground';
 import { HeroSection } from '@/components/guest/HeroSection';
 import { StatsBar } from '@/components/guest/StatsBar';
 import { CategoryTabs } from '@/components/guest/CategoryTabs';
