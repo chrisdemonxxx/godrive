@@ -1,7 +1,6 @@
 'use client';
 
 import { CarCard, type CarCardProps } from './CarCard';
-import { cn } from '@/lib/utils/cn';
 
 interface CarGridProps {
   cars: CarCardProps['car'][];
