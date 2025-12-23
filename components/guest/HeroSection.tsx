@@ -4,11 +4,7 @@ import { Sparkles } from 'lucide-react';
 import { SearchBar } from './SearchBar';
 import { cn } from '@/lib/utils/cn';
 
-interface HeroSectionProps {
-  onSearch?: () => void;
-}
-
-export function HeroSection({ onSearch }: HeroSectionProps) {
+export function HeroSection() {
   return (
     <section className={cn(
       "relative min-h-[calc(100vh-4rem)]",
