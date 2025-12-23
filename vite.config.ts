@@ -20,7 +20,7 @@ export default defineConfig({
     extensions: ['.mjs', '.js', '.mts', '.ts', '.jsx', '.tsx', '.json'],
   },
   optimizeDeps: {
-    include: ['@supabase/supabase-js'],
+    include: ['@supabase/supabase-js', 'date-fns'],
   },
   server: {
     port: 5173,

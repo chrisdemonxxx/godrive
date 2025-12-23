@@ -1,14 +1,26 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MapPin, Calendar, Search } from 'lucide-react';
 import { format, addDays } from 'date-fns';
 
+// Helper function to get date strings
+function getDateString(daysOffset: number): string {
+  const date = new Date();
+  date.setDate(date.getDate() + daysOffset);
+  return format(date, 'yyyy-MM-dd');
+}
+
 export function SearchForm({ variant = 'hero' }: { variant?: 'hero' | 'compact' }) {
   const navigate = useNavigate();
   const [location, setLocation] = useState('');
-  const [pickupDate, setPickupDate] = useState(format(addDays(new Date(), 1), 'yyyy-MM-dd'));
+  
+  // Use useMemo to calculate dates only once
+  const defaultPickupDate = useMemo(() => getDateString(1), []);
+  const defaultReturnDate = useMemo(() => getDateString(2), []);
+  
+  const [pickupDate, setPickupDate] = useState(defaultPickupDate);
   const [pickupTime, setPickupTime] = useState('10:00');
-  const [returnDate, setReturnDate] = useState(format(addDays(new Date(), 2), 'yyyy-MM-dd'));
+  const [returnDate, setReturnDate] = useState(defaultReturnDate);
   const [returnTime, setReturnTime] = useState('10:00');
 
   const handleSearch = (e: React.FormEvent) => {
