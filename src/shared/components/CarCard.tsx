@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Heart, Star, MapPin, Fuel, Users, Gauge, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Heart, Star, MapPin, Fuel, Users, Gauge, ChevronLeft, ChevronRight, Car } from 'lucide-react';
 import { Badge } from './ui/Badge';
 import { cn } from '@/shared/utils/cn';
 import { formatCurrency } from '@/shared/utils/formatCurrency';
@@ -26,19 +26,26 @@ interface CarCardProps {
 export function CarCard({ car, className }: CarCardProps) {
   const [currentImage, setCurrentImage] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
-  const images = car.images && car.images.length > 0 ? car.images : [{ url: '/placeholder-car.jpg' }];
+  const images = car.images && car.images.length > 0 ? car.images : [];
+  const hasImages = images.length > 0 && !imageError;
+  const displayImage = hasImages ? images[currentImage].url : null;
 
   const nextImage = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setCurrentImage((prev) => (prev + 1) % images.length);
+    if (hasImages) {
+      setCurrentImage((prev) => (prev + 1) % images.length);
+    }
   };
 
   const prevImage = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setCurrentImage((prev) => (prev - 1 + images.length) % images.length);
+    if (hasImages) {
+      setCurrentImage((prev) => (prev - 1 + images.length) % images.length);
+    }
   };
 
   const toggleLike = (e: React.MouseEvent) => {
@@ -57,14 +64,22 @@ export function CarCard({ car, className }: CarCardProps) {
     >
       {/* Image Carousel */}
       <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
-        <img
-          src={images[currentImage].url}
-          alt={`${car.make} ${car.model}`}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-        />
+        {displayImage ? (
+          <img
+            src={displayImage}
+            alt={`${car.make} ${car.model}`}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            onError={() => setImageError(true)}
+          />
+        ) : (
+          <div className="w-full h-full flex flex-col items-center justify-center text-gray-400 bg-gray-50">
+            <Car className="w-16 h-16 mb-2 opacity-20" />
+            <span className="text-sm font-medium opacity-40">No Image Available</span>
+          </div>
+        )}
         
         {/* Image navigation */}
-        {images.length > 1 && (
+        {hasImages && images.length > 1 && (
           <>
             <button
               onClick={prevImage}

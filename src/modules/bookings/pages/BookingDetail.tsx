@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useBooking } from '@/hooks';
-import { Card, CardHeader, CardTitle, CardContent, Button, Badge, Skeleton, ErrorState } from '@/components';
+import { useBooking, useCancelBooking } from '@/hooks';
+import { Card, CardHeader, CardTitle, CardContent, Button, Badge, Skeleton, ErrorState, Modal, ModalContent, ModalTitle, ModalDescription, ModalFooter } from '@/components';
 import { formatCurrency, formatDateTime } from '@/utils';
-import { Calendar, MapPin, User, Car } from 'lucide-react';
+import { Calendar, MapPin, User, Car, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 
 export default function BookingDetail(): JSX.Element {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { data, isLoading, error } = useBooking(id || '');
+  const cancelBookingMutation = useCancelBooking();
+  const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
 
   if (isLoading) {
     return (
@@ -156,10 +158,8 @@ export default function BookingDetail(): JSX.Element {
                 </Button>
                 <Button
                   variant="outline"
-                  onClick={() => {
-                    // TODO: Implement cancellation
-                    toast.error('Cancellation not yet implemented');
-                  }}
+                  onClick={() => setIsCancelModalOpen(true)}
+                  disabled={cancelBookingMutation.isPending}
                 >
                   Cancel Booking
                 </Button>
@@ -167,6 +167,40 @@ export default function BookingDetail(): JSX.Element {
             )}
           </CardContent>
         </Card>
+
+        <Modal open={isCancelModalOpen} onOpenChange={setIsCancelModalOpen}>
+          <ModalContent>
+            <ModalTitle>Cancel Booking</ModalTitle>
+            <ModalDescription>
+              Are you sure you want to cancel this booking? This action cannot be undone.
+              {booking.status === 'confirmed' && ' Cancellation fees may apply according to the policy.'}
+            </ModalDescription>
+            <ModalFooter>
+              <Button variant="outline" onClick={() => setIsCancelModalOpen(false)}>
+                Keep Booking
+              </Button>
+              <Button 
+                variant="destructive" 
+                onClick={() => {
+                  cancelBookingMutation.mutate(
+                    { id: booking.id, reason: 'Guest cancelled', cancelledBy: 'guest' },
+                    {
+                      onSuccess: () => {
+                        toast.success('Booking cancelled successfully');
+                        setIsCancelModalOpen(false);
+                      },
+                      onError: () => toast.error('Failed to cancel booking'),
+                    }
+                  );
+                }}
+                disabled={cancelBookingMutation.isPending}
+              >
+                {cancelBookingMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+                Yes, Cancel
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
       </div>
     </div>
   );

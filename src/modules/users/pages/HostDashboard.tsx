@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks';
-import { useBookings, useCars } from '@/hooks';
+import { useBookings, useCars, useUpdateBooking, useCancelBooking } from '@/hooks';
 import { Card, CardHeader, CardTitle, CardContent, Button, Badge, EmptyState, Skeleton } from '@/components';
 import { formatCurrency, formatDateTime } from '@/utils';
-import { Calendar, Car, DollarSign, TrendingUp, Plus } from 'lucide-react';
+import { Calendar, Car, DollarSign, TrendingUp, Plus, Loader2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export default function HostDashboard(): JSX.Element {
@@ -16,6 +16,8 @@ export default function HostDashboard(): JSX.Element {
     user ? { host_id: user.id } : undefined
   );
   const { data: carsData, isLoading: carsLoading } = useCars(user ? { host_id: user.id } : undefined);
+  const updateBookingMutation = useUpdateBooking();
+  const cancelBookingMutation = useCancelBooking();
 
   if (bookingsLoading || carsLoading) {
     return (
@@ -181,19 +183,31 @@ export default function HostDashboard(): JSX.Element {
                           <Button
                             variant="primary"
                             size="sm"
+                            disabled={updateBookingMutation.isPending || cancelBookingMutation.isPending}
                             onClick={() => {
-                              // TODO: Implement accept booking
-                              toast.success('Accept booking - Coming soon');
+                              updateBookingMutation.mutate(
+                                { id: booking.id, data: { status: 'confirmed' } },
+                                {
+                                  onSuccess: () => toast.success('Booking accepted'),
+                                  onError: () => toast.error('Failed to accept booking'),
+                                }
+                              );
                             }}
                           >
-                            Accept
+                            {updateBookingMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Accept'}
                           </Button>
                           <Button
-                            variant="outline"
+                            variant="destructive"
                             size="sm"
+                            disabled={updateBookingMutation.isPending || cancelBookingMutation.isPending}
                             onClick={() => {
-                              // TODO: Implement decline booking
-                              toast.error('Decline booking - Coming soon');
+                              cancelBookingMutation.mutate(
+                                { id: booking.id, reason: 'Host declined', cancelledBy: 'host' },
+                                {
+                                  onSuccess: () => toast.success('Booking declined'),
+                                  onError: () => toast.error('Failed to decline booking'),
+                                }
+                              );
                             }}
                           >
                             Decline

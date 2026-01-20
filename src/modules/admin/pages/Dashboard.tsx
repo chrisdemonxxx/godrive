@@ -1,14 +1,18 @@
 import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components';
 import { Users, Car, Calendar, DollarSign } from 'lucide-react';
+import { useBookings, useCars } from '@/hooks';
+import { formatCurrency } from '@/utils';
 
 export default function AdminDashboard(): JSX.Element {
-  // TODO: Fetch real metrics from API
+  const { data: bookingsData } = useBookings();
+  const { data: carsData } = useCars();
+
   const metrics = {
-    totalUsers: 0,
-    totalCars: 0,
-    totalBookings: 0,
-    totalRevenue: 0,
+    totalUsers: 0, // TODO: Implement useUsers hook
+    totalCars: carsData?.data?.length || 0,
+    totalBookings: bookingsData?.data?.length || 0,
+    totalRevenue: bookingsData?.data?.reduce((sum, b) => sum + (b.total_amount || 0), 0) || 0,
   };
 
   return (
@@ -62,7 +66,7 @@ export default function AdminDashboard(): JSX.Element {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-600">Total Revenue</p>
-                  <p className="text-2xl font-bold text-gray-900 mt-1">₹{metrics.totalRevenue}</p>
+                  <p className="text-2xl font-bold text-gray-900 mt-1">{formatCurrency(metrics.totalRevenue)}</p>
                 </div>
                 <DollarSign className="w-8 h-8 text-purple-600" />
               </div>

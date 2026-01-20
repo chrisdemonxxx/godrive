@@ -23,6 +23,16 @@ export function SearchForm({ variant = 'hero' }: { variant?: 'hero' | 'compact' 
   const [returnDate, setReturnDate] = useState(defaultReturnDate);
   const [returnTime, setReturnTime] = useState('10:00');
 
+  const handlePickupDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newPickupDate = e.target.value;
+    setPickupDate(newPickupDate);
+    
+    // If pickup date is after return date, update return date to match
+    if (newPickupDate > returnDate) {
+      setReturnDate(newPickupDate);
+    }
+  };
+
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     const params = new URLSearchParams({
@@ -92,7 +102,7 @@ export function SearchForm({ variant = 'hero' }: { variant?: 'hero' | 'compact' 
               <input
                 type="date"
                 value={pickupDate}
-                onChange={(e) => setPickupDate(e.target.value)}
+                onChange={handlePickupDateChange}
                 min={format(new Date(), 'yyyy-MM-dd')}
                 className="w-full pl-10 pr-2 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm"
               />
