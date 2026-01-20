@@ -2,8 +2,6 @@
  * Gradient definitions for premium design
  */
 
-import { colors } from './colors';
-
 export const gradients = {
   // Primary button gradient
   primary: 'linear-gradient(135deg, #00F0FF 0%, #8B5CF6 100%)',

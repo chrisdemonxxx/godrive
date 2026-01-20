@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Zap, TrendingUp, Wallet, Users, Star, ArrowRight, Car } from 'lucide-react';
+import { Zap, TrendingUp, Wallet, Users, Star, Car } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils/cn';
 

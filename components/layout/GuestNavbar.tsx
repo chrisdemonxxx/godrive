@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { Car, Menu, X, Bell, User, ChevronDown } from 'lucide-react';
+import { Car, Menu, X, Bell } from 'lucide-react';
 import { ThemeToggle } from '@/components/shared/ThemeToggle';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils/cn';

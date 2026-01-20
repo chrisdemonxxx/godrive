@@ -7,9 +7,9 @@ import { GuestFooter } from '@/components/layout/GuestFooter';
 import { SearchBar } from '@/components/guest/SearchBar';
 import { CarGrid } from '@/components/guest/CarGrid';
 import { cn } from '@/lib/utils/cn';
-import { SlidersHorizontal, X, ChevronDown } from 'lucide-react';
+import { SlidersHorizontal, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
-import { format, parseISO, differenceInDays } from 'date-fns';
+import { parseISO, differenceInDays } from 'date-fns';
 
 // Sample cars data - in a real app this would come from an API
 const allCars = [

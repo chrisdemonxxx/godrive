@@ -2,8 +2,6 @@
  * Shadow definitions for premium design effects
  */
 
-import { colors } from './colors';
-
 export const shadows = {
   // Glow effects (Dark theme)
   glowCyan: '0 0 20px rgba(0, 240, 255, 0.3), 0 0 40px rgba(0, 240, 255, 0.1)',

@@ -5,10 +5,12 @@
  * shadows, and animations for both dark (premium) and light themes.
  */
 
-export { colors } from './colors';
-export { gradients } from './gradients';
-export { shadows } from './shadows';
-export { animations } from './animations';
+import { colors } from './colors';
+import { gradients } from './gradients';
+import { shadows } from './shadows';
+import { animations } from './animations';
+
+export { colors, gradients, shadows, animations };
 
 export type { ColorScheme } from './colors';
 export type { GradientScheme } from './gradients';

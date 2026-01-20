@@ -65,15 +65,6 @@ export function SearchBar({ compact = false }: SearchBarProps) {
     router.push(`/search?${params.toString()}`);
   };
 
-  const formatDisplayDate = (date: string, time: string) => {
-    try {
-      const d = new Date(`${date}T${time}`);
-      return format(d, 'MMM d, h:mm a');
-    } catch {
-      return '';
-    }
-  };
-
   return (
     <div className={cn(
       "w-full",

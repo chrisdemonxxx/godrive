@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 import { GuestNavbar } from '@/components/layout/GuestNavbar';
 import { GuestFooter } from '@/components/layout/GuestFooter';
 import { Button } from '@/components/ui/Button';
@@ -9,7 +8,7 @@ import { Input } from '@/components/ui/Input';
 import { cn } from '@/lib/utils/cn';
 import { 
   Car, TrendingUp, Shield, Wallet, Calendar, 
-  CheckCircle, ArrowRight, Calculator, Star, Users
+  ArrowRight, Calculator, Star
 } from 'lucide-react';
 import { toast } from 'sonner';
 

@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/Badge';
 import { cn } from '@/lib/utils/cn';
 import { 
   ArrowLeft, Heart, Share2, MapPin, Fuel, Settings, Users, 
-  Star, Calendar, Shield, CheckCircle, Crown, Zap, ChevronLeft, 
+  Star, Shield, CheckCircle, Crown, Zap, ChevronLeft, 
   ChevronRight, Phone, MessageCircle, Clock, Car
 } from 'lucide-react';
 import { format, addDays, differenceInDays, setHours, setMinutes } from 'date-fns';
