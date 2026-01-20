@@ -3,15 +3,18 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { reviewSchema, type ReviewFormData } from '@/schemas';
-import { useBooking } from '@/hooks';
+import { useBooking, useAuth } from '@/hooks';
 import { Card, CardHeader, CardTitle, CardContent, Button, Textarea, Skeleton, ErrorState } from '@/components';
-import { Star } from 'lucide-react';
+import { Star, Loader2 } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { createReview } from '@/lib/api/reviews';
 
 export default function SubmitReview(): JSX.Element {
   const { bookingId } = useParams<{ bookingId: string }>();
   const navigate = useNavigate();
   const { data: bookingData, isLoading } = useBooking(bookingId || '');
+  const { user } = useAuth();
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   const {
     register,
@@ -31,13 +34,32 @@ export default function SubmitReview(): JSX.Element {
   const rating = watch('rating');
 
   const onSubmit = async (data: ReviewFormData) => {
+    if (!user || !bookingData?.data) return;
+    
+    setIsSubmitting(true);
+    const booking = bookingData.data;
+    const reviewerId = user.id;
+    // Assuming reviewee is the other party in the booking
+    const revieweeId = data.type === 'guest_to_host' ? booking.host_id : booking.guest_id;
+
     try {
-      // TODO: Implement review submission API
+      const result = await createReview({
+        ...data,
+        reviewer_id: reviewerId,
+        reviewee_id: revieweeId
+      });
+
+      if (result.error) {
+        throw new Error(result.error.message);
+      }
+
       toast.success('Review submitted successfully!');
       navigate(`/bookings/${bookingId}`);
     } catch (error) {
       toast.error('Failed to submit review');
       console.error('Submit review error:', error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -115,8 +137,8 @@ export default function SubmitReview(): JSX.Element {
                 <Button variant="outline" onClick={() => navigate(-1)} className="flex-1">
                   Cancel
                 </Button>
-                <Button type="submit" variant="primary" className="flex-1">
-                  Submit Review
+                <Button type="submit" variant="primary" className="flex-1" disabled={isSubmitting}>
+                  {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Submit Review'}
                 </Button>
               </div>
             </form>
